@@ -1160,6 +1160,14 @@ lvmmapname(unsigned int major, unsigned int minor,
 	*(px->name+maxlen-1) = 0;
 }
 
+struct disktab {
+	char 	*regexp;
+	regex_t	compreg;
+	void	(*modname)(unsigned int, unsigned int,
+				char *, struct perdsk *, int);
+	int	retval;
+}; 
+
 /*
 ** this table is used in the function isdisk()
 **
@@ -1169,29 +1177,51 @@ lvmmapname(unsigned int major, unsigned int minor,
 ** some frequently found names (like 'loop' and 'ram')
 ** are also recognized to skip them as fast as possible
 */
-static struct {
-	char 	*regexp;
-	regex_t	compreg;
-	void	(*modname)(unsigned int, unsigned int,
-				char *, struct perdsk *, int);
-	int	retval;
-} validdisk[] = {
-	{ "^ram[0-9][0-9]*$",			{0},  (void *)0,   NONTYPE, },
-	{ "^loop[0-9][0-9]*$",			{0},  (void *)0,   NONTYPE, },
-	{ "^sd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
-	{ "^dm-[0-9][0-9]*$",			{0},  lvmmapname,  LVMTYPE, },
-	{ "^md[0-9][0-9]*$",			{0},  nullmodname, MDDTYPE, },
-	{ "^vd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
-	{ "^hd[a-z]$",				{0},  nullmodname, DSKTYPE, },
-	{ "^rd/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
-	{ "^cciss/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
-	{ "^fio[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
-	{ "/host.*/bus.*/target.*/lun.*/disc",	{0},  abbrevname1, DSKTYPE, },
-	{ "^xvd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
-	{ "^vd[a-z][a-z]*$",                    {0},  nullmodname, DSKTYPE, },
-	{ "^dasd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
-	{ "^mmcblk[0-9][0-9]*$",		{0},  nullmodname, DSKTYPE, },
-	{ "^emcpower[a-z][a-z]*$",		{0},  nullmodname, DSKTYPE, },
+static struct disktab validdisk[] = {
+  { "^ram[0-9][0-9]*$",			{0},  (void *)0,   NONTYPE, },
+  { "^loop[0-9][0-9]*$",			{0},  (void *)0,   NONTYPE, },
+  { "^sd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^dm-[0-9][0-9]*$",			{0},  lvmmapname,  LVMTYPE, },
+  { "^md[0-9][0-9]*$",			{0},  nullmodname, MDDTYPE, },
+  { "^vd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^hd[a-z]$",				{0},  nullmodname, DSKTYPE, },
+  { "^rd/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
+  { "^cciss/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
+  { "^fio[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "/host.*/bus.*/target.*/lun.*/disc",	{0},  abbrevname1, DSKTYPE, },
+  { "^xvd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^vd[a-z][a-z]*$",                    {0},  nullmodname, DSKTYPE, },
+  { "^dasd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^mmcblk[0-9][0-9]*$",		{0},  nullmodname, DSKTYPE, },
+  { "^emcpower[a-z][a-z]*$",		{0},  nullmodname, DSKTYPE, },
+  { NULL,				{0},  (void *)0, NONTYPE, },
+};
+
+/*
+** this table is used in the function isdisk()
+**
+** table contains the names (in regexp format) of disk *partitions*.
+** This table is used instead of validdisk[] in isdisk() when the
+** partitionview flag is on.
+*/
+static struct disktab validdiskpart[] = {
+  { "^ram[0-9][0-9]$",			{0},  (void *)0,   NONTYPE, },
+  { "^loop[0-9][0-9]$",			{0},  (void *)0,   NONTYPE, },
+  { "^sd[a-z][a-z]*[0-9]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^dm-[0-9][0-9]*$",			{0},  lvmmapname,  LVMTYPE, },
+  { "^md[0-9][0-9]*$",			{0},  nullmodname, MDDTYPE, },
+  { "^vd[a-z][a-z]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^hd[a-z][0-9]*$",				{0},  nullmodname, DSKTYPE, },
+  { "^rd/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
+  { "^cciss/c[0-9][0-9]*d[0-9][0-9]*$",	{0},  nullmodname, DSKTYPE, },
+  { "^fio[a-z][a-z]*[0-9]*$",			{0},  nullmodname, DSKTYPE, },
+  { "/host.*/bus.*/target.*/lun.*/disc",	{0},  abbrevname1, DSKTYPE, },
+  { "^xvd[a-z][a-z]*[0-9]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^vd[a-z][a-z]*[0-9]*$",                    {0},  nullmodname, DSKTYPE, },
+  { "^dasd[a-z][a-z]*[0-9]*$",			{0},  nullmodname, DSKTYPE, },
+  { "^mmcblk[0-9][0-9]*$",		{0},  nullmodname, DSKTYPE, },
+  { "^emcpower[a-z][a-z]*$",		{0},  nullmodname, DSKTYPE, },
+  { NULL,				{0},  (void *)0, NONTYPE, },
 };
 
 static int
@@ -1200,30 +1230,37 @@ isdisk(unsigned int major, unsigned int minor,
 {
 	static int	firstcall = 1;
 	register int	i;
+	struct disktab	*valid = validdisk;
+
+	if (diskpartview)
+		valid = validdiskpart;
 
 	if (firstcall)		/* compile the regular expressions */
 	{
-		for (i=0; i < sizeof validdisk/sizeof validdisk[0]; i++)
+		for (i=0; validdisk[i].regexp; i++)
 			regcomp(&validdisk[i].compreg, validdisk[i].regexp,
-								REG_NOSUB);
+							REG_NOSUB);
+		for (i=0; validdiskpart[i].regexp; i++)
+			regcomp(&validdiskpart[i].compreg, validdiskpart[i].regexp,
+							REG_NOSUB);
 		firstcall = 0;
 	}
 
 	/*
 	** try to recognize one of the compiled regular expressions
 	*/
-	for (i=0; i < sizeof validdisk/sizeof validdisk[0]; i++)
+	for (i=0; valid[i].regexp; i++)
 	{
-		if (regexec(&validdisk[i].compreg, curname, 0, NULL, 0) == 0)
+		if (regexec(&valid[i].compreg, curname, 0, NULL, 0) == 0)
 		{
 			/*
 			** name-string recognized; modify name-string
 			*/
-			if (validdisk[i].retval != NONTYPE)
-				(*validdisk[i].modname)(major, minor,
-						curname, px, maxlen);
-
-			return validdisk[i].retval;
+			if (valid[i].retval != NONTYPE)
+				(*valid[i].modname)(major, minor,
+						 curname, px, maxlen);
+	
+			return valid[i].retval;
 		}
 	}
 

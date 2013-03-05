@@ -530,6 +530,10 @@ main(int argc, char *argv[])
 					prusage(argv[0]);
 				break;
 
+                           case 'j':		/* show disk partitions statistics */
+				diskpartview = 1;
+				break;
+
                            case 'P':		/* parseable output?          */
 				if ( !parsedef(optarg) )
 					prusage(argv[0]);

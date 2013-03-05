@@ -1,3 +1,10 @@
+atop (2.0.2-2bearstech2) stable; urgency=low
+
+  * Fixed per-partition disk statistics for first sample, no longer shows
+    funky values
+
+ -- Vincent Caron <vcaron@bearstech.com>  Tue, 05 Mar 2013 22:26:15 +0100
+
 atop (2.0.2-2bearstech1) stable; urgency=low
 
   * Merged Zitune's partition patch + cosmetic mods (reintroduced hardtabs, and

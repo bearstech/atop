@@ -1,0 +1,4 @@
+*.o
+*-stamp
+atop
+atopsar

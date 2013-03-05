@@ -1,0 +1,9 @@
+# Example watch control file for uscan
+# Rename this file to "watch" and then you can run the "uscan" command
+# to check for upstream updates and more.
+# Site			Directory	Pattern			Version	Script
+version=3
+# the old site
+#http://www.atconsultancy.nl/atop/download.html packages/atop-(.*)\.tar\.gz
+# the new website
+http://www.atoptool.nl/downloadatop.php download/atop-(.*)\.tar\.gz

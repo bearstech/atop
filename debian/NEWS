@@ -1,0 +1,17 @@
+atop (2.0.2-1bearstech1) stable; urgency=low
+
+  This is a plain Debian packaging of atop 2.0.x series. It is based
+  on the original Debian modification where logrotate is used to
+  do the rotation at the usual 6:25 daily rotation time (which differs
+  from atop's own scripts wich are based on 0:00 rotation times).
+
+  -- Vincent Caron <vcaron@bearstech.com>
+
+atop (1.13-1) unstable; urgency=low
+
+  This new upstream release adds, among the usual bugfixes, recognition of
+  thread-groups and scheduling information. The log-file format has changed to
+  store the new information. This means that you can't read logs from the
+  previous releases.
+
+ -- Edelhard Becker <edelhard@debian.org>  Fri, 24 Sep 2004 11:09:04 +0200

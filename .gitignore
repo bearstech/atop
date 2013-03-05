@@ -2,3 +2,7 @@
 *-stamp
 atop
 atopsar
+debian/*.log
+debian/*.debhelper
+debian/*.substvars
+debian/files

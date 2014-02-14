@@ -20,8 +20,15 @@
 ### END INIT INFO
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
+ATOP_OPTS="-a"
+ATOP_PERIOD=60
+
+if test -f /etc/default/atop; then
+    . /etc/default/atop
+fi
+
 DAEMON=/usr/bin/atop
-DARGS="-a -w /var/log/atop.log 60"
+DARGS="$ATOP_OPTS -w /var/log/atop.log $ATOP_PERIOD"
 NAME=atop
 DESC="atop system monitor"
 

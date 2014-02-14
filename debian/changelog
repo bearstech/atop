@@ -1,3 +1,21 @@
+atop (2.0.2-4~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Renumbering to respect standard backport conventions 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Sat, 06 Jul 2013 00:06:28 +0200
+
+atop (2.0.2-3bearstech+wheezy2) wheezy-bearstech; urgency=low
+
+  * Simple rebuild with version that follows the trivial repo last packge 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Wed, 19 Jun 2013 02:00:36 +0200
+
+atop (2.0.2-3~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Added suport for /etc/default/atop configuration file
+
+ -- Vincent Caron <vcaron@bearstech.com>  Fri, 08 Mar 2013 16:26:41 +0100
+
 atop (2.0.2-2bearstech2) stable; urgency=low
 
   * Fixed per-partition disk statistics for first sample, no longer shows

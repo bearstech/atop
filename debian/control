@@ -2,7 +2,7 @@ Source: atop
 Section: admin
 Priority: optional
 Maintainer: Vincent Caron <vcaron@bearstech.com>
-Build-Depends: debhelper (>= 8), zlib1g-dev, libncurses5-dev
+Build-Depends: debhelper (>= 8), dpatch (>= 2.0.31), zlib1g-dev, libncurses5-dev
 Standards-Version: 3.7.3
 Homepage: http://www.atoptool.nl/
 

@@ -11,7 +11,6 @@ There are the following changes made to the upstream source:
 
  - when installed, this package is started via init
  - the kernel patch is not installed (mentioned in atop.1)
- - the handling of logfiles is automated with logrotate (mentioned in atop.1)
 
 Edelhard Becker <becker@edelhard.de> Fri Apr 25 12:26:45 CEST 2003
 

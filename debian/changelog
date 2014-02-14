@@ -1,3 +1,15 @@
+atop (2.0.2-7~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Still fixing details (doc, empty folders) with the new rotation stuff. 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Fri, 14 Feb 2014 16:12:35 +0100
+
+atop (2.0.2-6~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Various fixes with new rotation model. 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Fri, 14 Feb 2014 16:01:23 +0100
+
 atop (2.0.2-5~wheezy+bearstech1) wheezy-bearstech; urgency=low
 
   * Going back to upstream's rotation model (at 0:00, with date suffixes) 

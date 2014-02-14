@@ -11,4 +11,4 @@ ATOP_KEEP=10
 # open a new logfile timestamped for this new day.
 invoke-rc.d --quiet atop restart
 
-echo find /var/log/atop -type f -mtime +$ATOP_KEEP
+find /var/log/atop -type f -mtime +$ATOP_KEEP

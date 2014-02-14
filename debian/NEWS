@@ -1,3 +1,7 @@
+atop (2.0.2-5~wheezy+bearstech1) urgency=low
+
+  Retrograding to atop's own rotation scheme, at 00:00. Much more convenient.
+
 atop (2.0.2-1bearstech1) stable; urgency=low
 
   This is a plain Debian packaging of atop 2.0.x series. It is based

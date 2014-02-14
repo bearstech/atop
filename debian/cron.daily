@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# 2014-02-14 vcaron@bearstech.com - replacement of crummy original rotation script
+
+ATOP_KEEP=10
+
+# Let user override ATOP_KEEP if she so whishes
+. /etc/default/atop
+
+# We're supposed to be invoked at 00:00, thus we simply restart atop which will
+# open a new logfile timestamped for this new day.
+invoke-rc.d --quiet atop restart
+
+echo find /var/log/atop -type f -mtime +$ATOP_KEEP

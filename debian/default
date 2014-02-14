@@ -1,0 +1,14 @@
+# Default settings for atop. This file is sourced by /bin/sh from
+# /etc/init.d/atop.
+
+# Options to pass to the atop recorder daemon.
+#
+# The init script will invariably set the '-w <logfile>' option for you
+# because it is tied to the /etc/logrotate.d/atop configuration file.
+#ATOP_OPTS="-a"
+
+# Sampling period in seconds
+#ATOP_PERIOD=600
+
+# Keep at most this number of daily logs
+#ATOP_KEEP=10

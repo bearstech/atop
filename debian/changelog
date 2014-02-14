@@ -1,3 +1,10 @@
+atop (2.0.2-8~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Slihgt bug in postinst, interfering with dh_installinit which always want
+    to start the service 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Fri, 14 Feb 2014 16:25:35 +0100
+
 atop (2.0.2-7~wheezy+bearstech1) wheezy-bearstech; urgency=low
 
   * Still fixing details (doc, empty folders) with the new rotation stuff. 

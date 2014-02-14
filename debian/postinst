@@ -17,7 +17,7 @@ if [ -e atop.log ]; then
     mv $log atop/atop_$stamp
   done
  
-  invoke-rc.d atop start
+  # invoke-rc.d atop start # dh_installinit will do it for us below
 fi
 
 #DEBHELPER#

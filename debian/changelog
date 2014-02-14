@@ -1,3 +1,9 @@
+atop (2.0.2-5~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * Going back to upstream's rotation model (at 0:00, with date suffixes) 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Fri, 14 Feb 2014 13:03:37 +0100
+
 atop (2.0.2-4~wheezy+bearstech1) wheezy-bearstech; urgency=low
 
   * Renumbering to respect standard backport conventions 

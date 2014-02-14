@@ -2,10 +2,3 @@
 
 #DEBHELPER#
 
-set -e
-
-if [ "$1" = "purge" ]
-then
-	rm -f /var/log/atop.log*
-fi
-

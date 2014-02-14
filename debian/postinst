@@ -1,11 +1,24 @@
 #!/bin/sh
 
-#DEBHELPER#
+# 2014-02-14 vcaron@bearstech.com - move away from the /var/log/atop.log.N
+# logrotate scheme. Use upstream /var/log/atop/atop_DAY format instead.
 
-# always begin new logfile on update
-LOGROTATE="/etc/logrotate.d/atop"
+set -e
 
-if [ -f $LOGROTATE ]; then
-	/usr/sbin/logrotate -f $LOGROTATE
+cd /var/log
+if [ -e atop.log ]; then
+  invoke-rc.d atop stop
+ 
+  mv atop.log atop/atop_$(date +%Y%m%d)
+ 
+  for log in atop.log*; do
+    mtime=$(stat --format %Y $log)
+    stamp=$(date --date=@$(($mtime - 86400)) +%Y%m%d)
+    mv $log atop/atop_$stamp
+  done
+ 
+  invoke-rc.d atop start
 fi
+
+#DEBHELPER#
 

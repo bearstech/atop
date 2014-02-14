@@ -21,14 +21,16 @@
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 ATOP_OPTS="-a"
-ATOP_PERIOD=60
+ATOP_PERIOD=600
 
 if test -f /etc/default/atop; then
     . /etc/default/atop
 fi
 
 DAEMON=/usr/bin/atop
-DARGS="$ATOP_OPTS -w /var/log/atop.log $ATOP_PERIOD"
+PIDFILE=/var/run/atop.pid
+LOGFILE=/var/log/atop/atop_$(date +%Y%m%d)
+DARGS="$ATOP_OPTS -w $LOGFILE $ATOP_PERIOD"
 NAME=atop
 DESC="atop system monitor"
 
@@ -39,12 +41,12 @@ set -e
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
-	start-stop-daemon --start --background --quiet --exec $DAEMON -- $DARGS
+	start-stop-daemon --pidfile $PIDFILE --make-pidfile --start --background --quiet --exec $DAEMON -- $DARGS
 	echo "$NAME."
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	start-stop-daemon --stop --quiet --retry 2 --oknodo --exec $DAEMON -- $DARGS
+	start-stop-daemon --pidfile $PIDFILE --stop --quiet --retry 2 --oknodo --exec $DAEMON -- $DARGS
 	echo "$NAME."
 	;;
   #reload)
@@ -55,9 +57,9 @@ case "$1" in
 	#	just the same as "restart".
 	#
 	echo -n "Restarting $DESC: "
-	start-stop-daemon --stop --quiet --exec $DAEMON -- $DARGS
+	start-stop-daemon --pidfile $PIDFILE --stop --quiet --exec $DAEMON -- $DARGS
 	sleep 1
-	start-stop-daemon --start --background --quiet --exec $DAEMON -- $DARGS
+	start-stop-daemon --pidfile $PIDFILE --make-pidfile --start --background --quiet --exec $DAEMON -- $DARGS
 	echo "$NAME."
 	;;
   *)

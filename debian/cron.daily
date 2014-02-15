@@ -9,6 +9,6 @@ ATOP_KEEP=10
 
 # We're supposed to be invoked at 00:00, thus we simply restart atop which will
 # open a new logfile timestamped for this new day.
-invoke-rc.d --quiet atop restart
+invoke-rc.d --quiet atop restart >/dev/null
 
-find /var/log/atop -type f -mtime +$ATOP_KEEP
+find /var/log/atop -type f -mtime +$ATOP_KEEP -delete

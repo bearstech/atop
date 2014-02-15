@@ -1,3 +1,10 @@
+atop (2.0.2-9~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * cron.daily : init.d does not honours inoke-rc.d's --quiet
+  * cron.daily : forgot to actually _delete_ old logs 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Sat, 15 Feb 2014 21:26:49 +0100
+
 atop (2.0.2-8~wheezy+bearstech1) wheezy-bearstech; urgency=low
 
   * Slihgt bug in postinst, interfering with dh_installinit which always want

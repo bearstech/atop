@@ -1,9 +1,9 @@
 #!/bin/sh
 
+set -e
+
 # 2014-02-14 vcaron@bearstech.com - move away from the /var/log/atop.log.N
 # logrotate scheme. Use upstream /var/log/atop/atop_DAY format instead.
-
-set -e
 
 cd /var/log
 if [ -e atop.log ]; then
@@ -19,6 +19,11 @@ if [ -e atop.log ]; then
  
   # invoke-rc.d atop start # dh_installinit will do it for us below
 fi
+
+# 2014-02-24 vcaron@bearstech.com - remove obsolete cron.daily file, it
+# will clash with the midnight rotation run via cron.d.
+
+rm -f /etc/cron.daily/atop
 
 #DEBHELPER#
 

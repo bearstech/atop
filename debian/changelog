@@ -1,3 +1,15 @@
+atop (2.0.2-10~wheezy+bearstech2) wheezy-bearstech; urgency=low
+
+  * cron.daily removed by postinst 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Mon, 24 Feb 2014 16:57:07 +0100
+
+atop (2.0.2-10~wheezy+bearstech1) wheezy-bearstech; urgency=low
+
+  * cron.daily replaced by cron.d to ACTUALLY rotate at midnight 
+
+ -- Vincent CARON <vcaron@bearstech.com>  Mon, 24 Feb 2014 16:14:54 +0100
+
 atop (2.0.2-9~wheezy+bearstech1) wheezy-bearstech; urgency=low
 
   * cron.daily : init.d does not honours inoke-rc.d's --quiet

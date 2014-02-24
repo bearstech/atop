@@ -58,6 +58,8 @@ install: build
 	rm -rf $(CURDIR)/debian/atop/etc/atop $(CURDIR)/debian/atop/etc/rc.d $(CURDIR)/debian/atop/usr/bin/atop*-*
 	rm -rf $(CURDIR)/debian/atop/var/log/atop/dummy* $(CURDIR)/debian/atop/etc/cron.d
 	rm -rf $(CURDIR)/debian/atop/etc/logrotate.d
+	# add custom ones
+	install -D -p $(CURDIR)/debian/atop_log_rotate $(CURDIR)/debian/atop/usr/lib/atop/atop_log_rotate
 
 # Build architecture-independent files here.
 binary-indep: build install

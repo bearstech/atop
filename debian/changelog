@@ -1,3 +1,10 @@
+atop (2.0.2-10~wheezy+bearstech3) wheezy-bearstech; urgency=low
+
+  * init script : fixed 'restart' wich did not use s-s-d --stop --retry 
+  * init script : bumped --retry from 2 to 5 seconds
+
+ -- Vincent CARON <vcaron@bearstech.com>  Tue, 06 May 2014 10:06:25 +0200
+
 atop (2.0.2-10~wheezy+bearstech2) wheezy-bearstech; urgency=low
 
   * cron.daily removed by postinst 

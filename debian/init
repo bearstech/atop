@@ -46,7 +46,7 @@ case "$1" in
 	;;
   stop)
 	echo -n "Stopping $DESC: "
-	start-stop-daemon --pidfile $PIDFILE --stop --quiet --retry 2 --oknodo --exec $DAEMON -- $DARGS
+	start-stop-daemon --pidfile $PIDFILE --stop --quiet --retry 5 --oknodo --exec $DAEMON -- $DARGS
 	echo "$NAME."
 	;;
   #reload)
@@ -57,8 +57,7 @@ case "$1" in
 	#	just the same as "restart".
 	#
 	echo -n "Restarting $DESC: "
-	start-stop-daemon --pidfile $PIDFILE --stop --quiet --exec $DAEMON -- $DARGS
-	sleep 1
+	start-stop-daemon --pidfile $PIDFILE --stop --quiet --retry 5 --oknodo --exec $DAEMON -- $DARGS
 	start-stop-daemon --pidfile $PIDFILE --make-pidfile --start --background --quiet --exec $DAEMON -- $DARGS
 	echo "$NAME."
 	;;

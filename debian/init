@@ -36,6 +36,8 @@ DESC="atop system monitor"
 
 test -x $DAEMON || exit 0
 
+. /lib/lsb/init-functions
+
 set -e
 
 case "$1" in

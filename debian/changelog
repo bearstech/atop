@@ -1,3 +1,9 @@
+atop (2.0.2-10~wheezy+bearstech4) wheezy-bearstech; urgency=medium
+
+  * init script : sourced lsb-functions for systemd compat
+
+ -- Vincent CARON <vcaron@bearstech.com>  Thu, 13 Oct 2016 12:26:18 +0200
+
 atop (2.0.2-10~wheezy+bearstech3) wheezy-bearstech; urgency=low
 
   * init script : fixed 'restart' wich did not use s-s-d --stop --retry 
